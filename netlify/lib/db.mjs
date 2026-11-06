@@ -1,23 +1,16 @@
 // Acesso ao banco. Em produção: Neon (Netlify DB). Nos testes: PGlite em memória.
-import { neon } from '@neondatabase/serverless';
+// conexao: pacote @netlify/database (variavel NETLIFY_DB_URL)
 
 let _run = null;
 
 /** Troca o executor (usado nos testes). fn(text, params) => Promise<rows[]> */
 export function setExecutor(fn) { _run = fn; }
 
-function executor() {
-  if (_run) return _run;
-  const url = process.env.NETLIFY_DATABASE_URL || process.env.DATABASE_URL;
-  if (!url) throw new HttpError(500, 'Banco não configurado (NETLIFY_DATABASE_URL).');
-  const sql = neon(url);
-  _run = (text, params = []) => sql.query(text, params);
-  return _run;
-}
+async function executor() { if (_run) return _run; const { getDatabase } = await import('@netlify/database'); let db; try { db = getDatabase(); } catch { throw new HttpError(500, 'Banco nao configurado. Crie o banco em Data & storage > Database.'); } _run = async (text, params = []) => (await db.pool.query(text, params)).rows; return _run; }
 
 /** Consulta com parâmetros ($1, $2...). Retorna as linhas. */
 export async function q(text, params = []) {
-  const rows = await executor()(text, params);
+  const rows = await (await executor())(text, params);
   return Array.isArray(rows) ? rows : (rows?.rows ?? []);
 }
 
