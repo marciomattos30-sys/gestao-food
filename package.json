@@ -1,0 +1,17 @@
+{
+  "name": "gestao-food",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "Gestão Food — gestão de cafeterias e restaurantes (primeiro cliente: Rei do Mate Bradesco Matriz)",
+  "scripts": {
+    "test": "node tests/smoke.mjs"
+  },
+  "dependencies": {
+    "@neondatabase/serverless": "^1.0.0",
+    "@netlify/blobs": "^10.0.0"
+  },
+  "devDependencies": {
+    "@electric-sql/pglite": "^0.3.0"
+  }
+}
