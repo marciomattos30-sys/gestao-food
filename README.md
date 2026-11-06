@@ -34,7 +34,7 @@ Funciona como app (PWA): instala no celular e no computador pelo navegador.
 ### 2. Netlify
 1. **Add new site → Import an existing project** → escolha o repositório `gestao-food`.
 2. Não precisa mudar nada no build (o `netlify.toml` já configura).
-3. Em **Extensions**, instale o **Netlify DB (Neon)**. Ele cria o banco e a variável `NETLIFY_DATABASE_URL` sozinho.
+3. Em **Data & storage › Database**, crie o banco (Netlify Database). A conexão é automática.
 4. Em **Site configuration → Environment variables**, crie:
 
 | Variável | Valor |
