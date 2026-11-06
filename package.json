@@ -8,7 +8,7 @@
     "test": "node tests/smoke.mjs"
   },
   "dependencies": {
-    "@neondatabase/serverless": "^1.0.0",
+    "@netlify/database": "^2.0.3",
     "@netlify/blobs": "^10.0.0"
   },
   "devDependencies": {
